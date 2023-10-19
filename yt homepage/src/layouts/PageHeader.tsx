@@ -1,10 +1,8 @@
-
 import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from "lucide-react"
-import logos from "../assets/logos.png"
-
+import logo from "../assets/Logo.png"
 import { Button } from "../components/Button"
 import { useState } from "react"
-// import { useSidebarContext } from "../contexts/SidebarContext"
+import { useSidebarContext } from "../contexts/SidebarContext"
 
 export function PageHeader() {
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false)
@@ -79,7 +77,7 @@ type PageHeaderFirstSectionProps = {
 export function PageHeaderFirstSection({
   hidden = false,
 }: PageHeaderFirstSectionProps) {
-//   const { toggle } = useSidebarContext()
+  const { toggle } = useSidebarContext()
 
   return (
     <div
@@ -87,14 +85,11 @@ export function PageHeaderFirstSection({
         hidden ? "hidden" : "flex"
       }`}
     >
-      <Button 
-    //   onClick={toggle} 
-      variant="ghost" 
-      size="icon">
+      <Button onClick={toggle} variant="ghost" size="icon">
         <Menu />
       </Button>
       <a href="/">
-        <img src={logos} className="h-11    " />
+        <img src={logo} className="h-6" />
       </a>
     </div>
   )
