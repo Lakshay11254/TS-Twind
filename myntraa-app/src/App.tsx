@@ -1,9 +1,11 @@
 import React from 'react'
 import Navbar from './component/Navbar'
+import Login from './component/Login'
 
 function App() {
   return (
-    <Navbar/>
+    // <Navbar/>
+    <Login/>
   )
 }
 
