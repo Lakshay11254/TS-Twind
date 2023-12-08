@@ -28,11 +28,11 @@ const Navbar = () => {
         />
       </div>
 
-      <div className="ml-6 text-xs absolute right-12 mr-20">
+      <div className="ml-6 text-xs  ">
         <RiAccountCircleLine className="w-5 h-5 ml-2" />
         <h1>Login</h1>
       </div>
-      <div className="ml-6 text-xs  absolute right-1 mr-10 ">
+      <div className="ml-6 text-xs   ">
         <GrLogout className="w-5 h-5 ml-2" />
         <h1>Logout</h1>
       </div>
