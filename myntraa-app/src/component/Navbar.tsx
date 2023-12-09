@@ -3,6 +3,7 @@ import { Input, Typography } from "@material-tailwind/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { GrLogout } from "react-icons/gr";
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -28,10 +29,13 @@ const Navbar = () => {
         />
       </div>
 
+      <Link to="login">
       <div className="ml-6 text-xs  ">
         <RiAccountCircleLine className="w-5 h-5 ml-2" />
         <h1>Login</h1>
       </div>
+      </Link>
+     
       <div className="ml-6 text-xs   ">
         <GrLogout className="w-5 h-5 ml-2" />
         <h1>Logout</h1>
