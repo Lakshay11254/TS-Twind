@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import { v4 as uuidv4 } from "uuid";
@@ -7,8 +7,33 @@ uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+  const [showFinished, setshowFinished] = useState(true)
 
-  const handleEdit = () => {};
+  useEffect(() => {
+  let todoString = localStorage.getItem("todos")
+  if(todoString){
+    let todos = JSON.parse(localStorage.getItem("todos"))
+    setTodos(todos)
+  }
+  }, []);
+
+  const saveToLocalStorage = (params) => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+const toggleFinished = () => {
+  
+}
+
+  const handleEdit = (e, id) => {
+    let t = todos.filter((i) => i.id === id);
+    setTodo(t[0].todo);
+    let newTodos = todos.filter((item) => {
+      return item.id !== id;
+    });
+    setTodos(newTodos);
+    saveToLocalStorage();
+  };
 
   const handleDelete = (e, id) => {
     // let id = e.target.name;
@@ -21,15 +46,20 @@ function App() {
       return item.id !== id;
     });
     setTodos(newTodos);
+    saveToLocalStorage();
   };
+
   const handleAdd = () => {
     setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }]);
     setTodo("");
     // console.log("todo")
+    saveToLocalStorage();
   };
+
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
+
   const handleCheckbox = (e) => {
     let id = e.target.name;
     console.log(id);
@@ -42,7 +72,9 @@ function App() {
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     //false then true, true then falsEe.
     setTodos(newTodos);
+    saveToLocalStorage();
   };
+
   return (
     <>
       <Navbar />
@@ -62,33 +94,34 @@ function App() {
             Add
           </button>
         </div>
+        <input type="checkbox" value={showFinished} />
         <h2 className="text-lg font-semibold">Your Todo</h2>
-       
-       
+
         <div className="todos">
           {todos.length === 0 && <div className="m-5">No Todos to display</div>}
           {todos.map((item) => {
             return (
               <div
-              key={item.id}
-              className="todo flex w-1/4 my-3 justify-between"
+                key={item.id}
+                className="todo flex w-1/4 my-3 justify-between"
               >
                 <div className="flex gap-5">
-
-                <input
-                  onChange={handleCheckbox}
-                  name={item.id}
-                  type="checkbox"
-                  value={item.isCompleted}
-                  id=""
+                  <input
+                    onChange={handleCheckbox}
+                    name={item.id}
+                    type="checkbox"
+                    value={item.isCompleted}
+                    id=""
                   />
-                <div className={item.isCompleted ? "line-through" : ""}>
-                  {item.todo}
+                  <div className={item.isCompleted ? "line-through" : ""}>
+                    {item.todo}
                   </div>
                 </div>
-                <div className="buttons">
+                <div className="buttons flex">
                   <button
-                    onClick={() => {handleEdit(e, item.id)}}
+                    onClick={(e) => {
+                      handleEdit(e, item.id);
+                    }}
                     className="bg-green-700 hover:bg-green-900 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
                   >
                     Edit
