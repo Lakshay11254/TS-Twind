@@ -3,6 +3,7 @@
     "eslint-plugin-react": "^7.33.2"
   },
   "dependencies": {
+    "react-icons": "^5.0.1",
     "uuid": "^9.0.1"
   }
 }
