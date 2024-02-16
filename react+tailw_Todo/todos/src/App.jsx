@@ -27,7 +27,7 @@ function App() {
   };
 
   const toggleFinished = (e) => {
-    setshowFinished(!showFinished )
+    setshowFinished(!showFinished);
   };
 
   const handleEdit = (e, id) => {
@@ -64,7 +64,6 @@ function App() {
   const handleChange = (e) => {
     setTodo(e.target.value);
     saveToLocalStorage();
-
   };
 
   const handleCheckbox = (e) => {
@@ -86,9 +85,15 @@ function App() {
     <>
       <Navbar />
       <div className="mx-3 md:container md:mx-auto my-5 rounded-2xl p-5 bg-violet-200 min-h-[80vh] md:w-1/2 ">
-        <h1 className="flex mx-2 gap-2 items-center font-bold  text-center text-xl text-purple-800 hover:text-purple-600 text-balance"><FaClipboardList/>Manage your Todos at one place</h1>
+        <h1 className="flex mx-2 gap-2 items-center font-bold  text-center text-xl text-purple-800 hover:text-purple-600 text-balance">
+          <FaClipboardList />
+          Manage your Todos at one place
+        </h1>
         <div className="addTodo my-2 flex flex-col gap-4">
-          <h1 className="flex gap-2 mx-2 mt-8 items-center text-lg  font-bold text-purple-900 hover:text-purple-600"><MdFormatListBulletedAdd />Add a Todos</h1>
+          <h1 className="flex gap-2 mx-2 mt-8 items-center text-lg  font-bold text-purple-900 hover:text-purple-600">
+            <MdFormatListBulletedAdd />
+            Add a Todos
+          </h1>
           <input
             onChange={handleChange}
             value={todo}
@@ -100,53 +105,61 @@ function App() {
             disabled={todo.length <= 0}
             className="flex flex-col items-center justify-between bg-purple-700  hover:bg-purple-900 disabled:bg-purple-500 p-2 py-1 text-xl font-bold text-white rounded-md  "
           >
-            <MdAddBox /></button>
-            {/* className="flex items-center justify-between bg-purple-700  hover:bg-purple-900 disabled:bg-purple-500 p-2 py-1 text-sm font-bold text-white rounded-md  "
+            <MdAddBox />
+          </button>
+          {/* className="flex items-center justify-between bg-purple-700  hover:bg-purple-900 disabled:bg-purple-500 p-2 py-1 text-sm font-bold text-white rounded-md  "
           >
             Add<MdAddBox /></button> */}
         </div>
-        <input className="my-4" onChange={toggleFinished} type="checkbox" checked={showFinished} /> Show Finished
+        <input
+          className="my-4"
+          onChange={toggleFinished}
+          type="checkbox"
+          checked={showFinished}
+        />{" "}
+        Show Finished
         <h2 className="text-lg font-semibold">Your Todo</h2>
         <div className="todos">
           {todos.length === 0 && <div className="m-5">No Todos to display</div>}
           {todos.map((item) => {
-            return(showFinished || !item.isCompleted) && (
-              <div
-                key={item.id}
-                className="todo flex md:w-1/2 my-3 justify-between"
-              >
-                <div className="flex gap-5">
-                  <input
-                    onChange={handleCheckbox}
-                    name={item.id}
-                    type="checkbox"
-                    checked={item.isCompleted}
-                    id=""
-                  />
-                  <div className={item.isCompleted ? "line-through" : ""}>
-                    {item.todo}
+            return (
+              (showFinished || !item.isCompleted) && (
+                <div
+                  key={item.id}
+                  className="todo flex md:w-1/2 my-3 justify-between"
+                >
+                  <div className="flex gap-5">
+                    <input
+                      onChange={handleCheckbox}
+                      name={item.id}
+                      type="checkbox"
+                      checked={item.isCompleted}
+                      id=""
+                    />
+                    <div className={item.isCompleted ? "line-through" : ""}>
+                      {item.todo}
+                    </div>
+                  </div>
+                  <div className="buttons flex">
+                    <button
+                      onClick={(e) => {
+                        handleEdit(e, item.id);
+                      }}
+                      className="bg-green-700 hover:bg-green-900 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        handleDelete(e, item.id);
+                      }}
+                      className="bg-red-700 hover:bg-red-900 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
+                    >
+                      <AiFillDelete />
+                    </button>
                   </div>
                 </div>
-                <div className="buttons flex">
-                  <button
-                    onClick={(e) => {
-                      handleEdit(e, item.id);
-                    }}
-                    className="bg-green-700 hover:bg-green-900 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      handleDelete(e, item.id);
-                    }}
-                    className="bg-red-700 hover:bg-red-900 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
-
-                  >
-                    <AiFillDelete />
-                  </button>
-                </div>
-              </div>
+              )
             );
           })}
         </div>
